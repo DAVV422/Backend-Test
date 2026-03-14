@@ -3,6 +3,7 @@ using Bsol.Business.Template.Api;
 using Bsol.Business.Template.Api.Extensions;
 using Bsol.Business.Template.Core;
 using Bsol.Business.Template.Infrastructure;
+using Bsol.Business.Template.Infrastructure.Data;
 using Destructurama;
 using FastEndpoints;
 using FastEndpoints.Swagger;
@@ -62,6 +63,14 @@ app.UseHealthChecks("/health",
         Predicate = _ => true,
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
     });
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await AccountSeeder.SeedAsync(dbContext);
+}
+
+
 
 await app.RunAsync();
 

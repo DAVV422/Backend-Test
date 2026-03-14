@@ -9,7 +9,7 @@ services:
       - SA_PASSWORD=MyPassw0rd!
       - MSSQL_PID=Developer
     ports:
-      - "1433:1433"
+      - "1435:1433"
     networks:
       - bsol-network
     restart: unless-stopped
@@ -22,7 +22,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=bsol_db
     ports:
-      - "5432:5432"
+      - "5438:5432"
     networks:
       - bsol-network
     restart: unless-stopped

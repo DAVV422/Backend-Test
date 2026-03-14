@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Bsol.Business.Template.Core.AccountAggregate;
+using Bsol.Business.Template.Core.TransactionAggregate;
 using Bsol.Business.Template.SharedKernel;
 using Bsol.Business.Template.SharedKernel.Audit;
 using Bsol.Business.Template.SharedKernel.Interfaces;
@@ -16,18 +18,22 @@ public class AppDbContext : DbContext
     private readonly IHttpContextAccessor? _httpContextAccessor;
 
 
-    public AppDbContext(DbContextOptions<AppDbContext> options,
-      IDomainEventDispatcher? dispatcher, IHttpContextAccessor httpContextAccessor)
-        : base(options)
-    {
-        _dispatcher = dispatcher;
-        _httpContextAccessor = httpContextAccessor;
+    public AppDbContext(DbContextOptions<AppDbContext> options, 
+        IDomainEventDispatcher? dispatcher, IHttpContextAccessor httpContextAccessor) : base(options) 
+    { 
+        _dispatcher = dispatcher; 
+        _httpContextAccessor = httpContextAccessor; 
     }
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-
+    
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
+    { 
+    
     }
     public DbSet<Core.TemplateAggregate.Template> Template { get; set; }
+
+    //Prueba Tecnica
+    public DbSet<Account> Accounts => Set<Account>();
+    public DbSet<Transaction> Transactions => Set<Transaction>();
 
     //User For Audits
     public DbSet<Audit> Audits { get; set; }
